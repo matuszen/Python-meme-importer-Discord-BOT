@@ -1,6 +1,6 @@
 import os
 import requests
-from bs4 import element, BeautifulSoup
+from bs4 import BeautifulSoup, element
 from datetime import datetime
 import discord
 import pickle
