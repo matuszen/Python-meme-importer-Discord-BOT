@@ -1,2 +1,5 @@
 # contains stricted bot information
-.data.dat
+.token.dat
+
+# pycache
+__pycache__
