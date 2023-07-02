@@ -5,8 +5,7 @@ from datetime import datetime
 import discord
 import pickle
 
-TEMP_MEDIA_DIRECTORY_NAME = "cache"
-LAST_IMPORT_TIME_FILE = "last_run_time.pkl"
+LAST_IMPORT_TIME_FILE = "../data/last_run_time.pkl"
 
 WEBSITES = {
     "JBZD": {
@@ -88,31 +87,28 @@ class MediaFilter:
             subpage += 1
 
         if log_info:
-            print(
-                f"From jbzd.com.pl ({which_page} page), import: {elements_count} items"
-            )
+            print(f"In jbzd.com.pl ({which_page} page), find {elements_count} items")
 
 
 class MediaImporter:
     def __init__(self) -> None:
         self.media_urls = set()
-        self.temp_media_directory = TEMP_MEDIA_DIRECTORY_NAME
 
-        if not os.path.exists(self.temp_media_directory):
-            os.makedirs(self.temp_media_directory)
+        if not os.path.exists("..\\cache"):
+            os.makedirs("..\\cache")
 
-        if os.path.exists(f"data\\{LAST_IMPORT_TIME_FILE}"):
-            with open(f"data\\{LAST_IMPORT_TIME_FILE}", "rb") as file:
+        if os.path.exists(f"..\\data\\{LAST_IMPORT_TIME_FILE}"):
+            with open(f"..\\data\\{LAST_IMPORT_TIME_FILE}", "rb") as file:
                 self.last_import_time: datetime = pickle.load(file)
         else:
-            if not os.path.exists("data\\"):
-                os.mkdir("data")
+            if not os.path.exists("..\\data\\"):
+                os.mkdir("..\\data")
 
             now = datetime.now()
             self.last_import_time = datetime(now.year, now.month, now.day, 0, 0, 0)
 
     def __del__(self) -> None:
-        with open(f"data\\{LAST_IMPORT_TIME_FILE}", "wb") as file:
+        with open(f"..\\data\\{LAST_IMPORT_TIME_FILE}", "wb") as file:
             now = datetime.now()
             pickle.dump(
                 datetime(
@@ -128,17 +124,39 @@ class MediaImporter:
 
         self.media_urls = filter.media_urls
 
+    def _clear_cache(self) -> None:
+        for file in os.listdir(".\\cache"):
+            os.remove(f"..\\cache\\{file}")
+
     async def import_images(self, channel) -> None:
         for image_url in self.media_urls:
             image_filename = image_url.split("/")[-1]
             image_response = requests.get(image_url, stream=True)
+
             if image_response.status_code == 200:
-                image_path = os.path.join(self.temp_media_directory, image_filename)
+                image_path = os.path.join("..\\cache", image_filename)
 
                 with open(image_path, "wb") as file:
                     for chunk in image_response.iter_content(chunk_size=8192):
                         file.write(chunk)
 
                 discord_file = discord.File(image_path, filename=image_filename)
-                await channel.send(file=discord_file)
+
+                try:
+                    await channel.send(file=discord_file)
+
+                except discord.errors.HTTPException:
+                    print(f"{image_filename} file is to large")
+
+                except discord.errors.ConnectionClosed:
+                    print(f"Shard ID None WebSocket closed with 1000")
+
+                except Exception:
+                    try:
+                        await channel.send(file=discord_file, timeout=3.0)
+                    except:
+                        print(f"Problem with importing {image_filename}")
+
                 os.remove(image_path)
+
+        self._clear_cache()

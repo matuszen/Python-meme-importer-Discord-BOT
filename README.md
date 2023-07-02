@@ -3,11 +3,13 @@
 This script allows you to automate the collection of images and videos from selected webpages and send them to a Discord channel using the Discord application. It can be used to gather media content from various sources on the internet and share them with your friends or community on Discord.
 
 ## Prerequisites
+
 Before running this script, make sure you have the following requirements fulfilled:
-- Python 3.6 or higher installed on your system
-- Required Python packages installed (discord.py, requests, bs4)
+-Python 3.6 or higher installed on your system
+-Required Python packages installed (discord.py, requests, bs4)
 
 ## Installation
+
 1. Clone or download the repository to your local machine:
 ```
 git clone <repository_url>
