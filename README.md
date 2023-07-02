@@ -1,4 +1,4 @@
-# Meme-dealer-Discord-BOT
+# Python-meme-importer-Discord-BOT
  
 This script allows you to automate the collection of images and videos from selected webpages and send them to a Discord channel using the Discord application. It can be used to gather media content from various sources on the internet and share them with your friends or community on Discord.
 
