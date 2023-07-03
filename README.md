@@ -35,11 +35,7 @@ Before running this script, make sure you have the following requirements fulfil
    - CHANNEL_ID: Replace 0 with the ID of the Discord channel where you want to send the media. You can enable developer mode in Discord settings and then right-click on the channel to obtain its ID.
    - WEBPAGES: List the URLs of the webpages from where you want to collect media. This is static object.
 
-5. Run the script:
-
-   ```shell
-   python bin/main.py
-   ```
+5. Run the script
 
 The script will start collecting media from the specified webpages and send them to the configured Discord channel.
 
