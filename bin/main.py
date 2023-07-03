@@ -3,7 +3,7 @@ from bin.utility import log
 from discord.ext import commands
 from bin.MediaImporter import MediaImporter
 
-TOKEN = ""
+TOKEN = "YOUR_DISCORD_BOT_TOKEN"
 CHANNEL_ID = 0
 
 intents = discord.Intents.default()
