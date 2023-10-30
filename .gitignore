@@ -1,6 +1,9 @@
 # contains stricted bot information
-.token.dat
+token.py
 last_run_time.pkl
 
 # pycache
 __pycache__
+
+# cache directory
+cache
