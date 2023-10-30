@@ -125,7 +125,7 @@ class MediaImporter:
         self.media_urls = filter.media_urls
 
     def _clear_cache(self) -> None:
-        for file in os.listdir(".\\cache"):
+        for file in os.listdir("..\\cache"):
             os.remove(f"..\\cache\\{file}")
 
     async def import_images(self, channel) -> None:
@@ -157,6 +157,7 @@ class MediaImporter:
                     except:
                         print(f"Problem with importing {image_filename}")
 
-                os.remove(image_path)
+                # os.remove(image_path)
+                self._clear_cache()
 
         self._clear_cache()
