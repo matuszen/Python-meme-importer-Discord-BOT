@@ -1,5 +1,5 @@
 # contains stricted bot information
-token.py
+discord_token.py
 last_run_time.pkl
 
 # pycache

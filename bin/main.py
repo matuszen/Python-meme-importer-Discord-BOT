@@ -2,8 +2,8 @@ import discord
 from discord.ext import commands
 import logging as log
 
-from .token import TOKEN, CHANNEL_ID
-from .MediaImporter import MediaImporter
+from discord_token import TOKEN, CHANNEL_ID
+from MediaImporter import MediaImporter
 
 intents = discord.Intents.default()
 intents.typing = False
