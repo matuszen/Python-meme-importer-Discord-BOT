@@ -6,7 +6,7 @@ This script allows you to automate the collection of images and videos from sele
 
 Before running this script, make sure you have the following requirements fulfilled:
 
-- Python 3.6 or higher installed on your system
+- Python 3.8 or higher installed on your system
 - Required Python packages installed (discord.py, requests, bs4)
 
 ## Installation
@@ -41,9 +41,9 @@ The script will start collecting media from the specified webpages and send them
 
 ## Usage
 
-- Script can be used on server, once runing, automaticly do ordered tasks.
+- Script can be used on server, once running, automatically do ordered tasks.
 - If any new media is found, it will be downloaded and send to discord channel right away.
-- When script finish work, automaticly saves date and hour, becouse when you run this another time, only upload media, which are posted since last script running.
+- When script finish work, automatically saves date and hour, because when you run this another time, only upload media, which are posted since last script running.
 - If you delete data/last_time_upload.pkl file, script will import media only from current day, since midnight.
 
 ## Important Note
