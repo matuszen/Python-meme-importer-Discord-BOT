@@ -1,9 +1,12 @@
+import logging
 import discord
+
 from discord.ext import commands
-import logging as log
 
 from discord_token import TOKEN, CHANNEL_ID
 from MediaImporter import MediaImporter
+
+log = logging.getLogger()
 
 intents = discord.Intents.default()
 intents.typing = False
@@ -19,28 +22,20 @@ async def on_ready() -> None:
     try:
         await bot.fetch_channel(CHANNEL_ID)
 
-    except discord.errors.InvalidData:
-        log.error("Unknown channel type was received from Discord")
+    except (
+        discord.errors.InvalidData,
+        discord.errors.NotFound,
+        discord.errors.Forbidden,
+        discord.errors.HTTPException,
+    ) as e:
+        log.error(f"Error during fetching channel: {e}")
         return
 
-    except discord.errors.NotFound:
-        log.error("Invalid Channel ID")
-        return
+    with MediaImporter() as importer:
+        importer.find_media_urls()
+        with bot.get_channel(CHANNEL_ID) as channel:
+            await importer.import_images(channel)
 
-    except discord.errors.Forbidden:
-        log.error("You do not have permission to fetch this channel")
-        return
-
-    except discord.errors.HTTPException:
-        log.error("Retrieving the channel failed")
-        return
-
-    channel = bot.get_channel(CHANNEL_ID)
-
-    importer = MediaImporter()
-    importer.find_media_urls()
-
-    await importer.import_images(channel)
     await bot.close()
 
 
