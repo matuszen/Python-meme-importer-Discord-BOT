@@ -68,7 +68,7 @@ class MediaFilter:
                         ):
                             self.media_urls.add(image_url)
                             if log_info:
-                                print(f"Image finded: {image_url.split('/')[-1]}")
+                                print(f"Image found: {image_url.split('/')[-1]}")
                             elements_count += 1
 
                     for video in videos:
@@ -76,7 +76,7 @@ class MediaFilter:
                         if video_url:
                             self.media_urls.add(video_url)
                             if log_info:
-                                print(f"Video finded: {video_url.split('/')[-1]}")
+                                print(f"Video found: {video_url.split('/')[-1]}")
                             elements_count += 1
 
                     last_subpage = False
@@ -149,15 +149,15 @@ class MediaImporter:
                     print(f"{image_filename} file is to large")
 
                 except discord.errors.ConnectionClosed:
-                    print(f"Shard ID None WebSocket closed with 1000")
+                    print("Shard ID None WebSocket closed with 1000")
 
                 except Exception:
                     try:
                         await channel.send(file=discord_file, timeout=3.0)
-                    except:
+                    except Exception:
                         print(f"Problem with importing {image_filename}")
 
-                # os.remove(image_path)
+                os.remove(image_path)
                 self._clear_cache()
 
         self._clear_cache()

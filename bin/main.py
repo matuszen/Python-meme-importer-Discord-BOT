@@ -14,25 +14,25 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.event
 async def on_ready() -> None:
-    log.info(f"Succesfully logged in as {bot.user.name}")
+    log.info(f"Successfully logged in as {bot.user.name}")
 
     try:
         await bot.fetch_channel(CHANNEL_ID)
 
     except discord.errors.InvalidData:
-        log.error(f"Unknown channel type was received from Discord")
+        log.error("Unknown channel type was received from Discord")
         return
 
     except discord.errors.NotFound:
-        log.error(f"Invalid Channel ID")
+        log.error("Invalid Channel ID")
         return
 
     except discord.errors.Forbidden:
-        log.error(f"You do not have permission to fetch this channel")
+        log.error("You do not have permission to fetch this channel")
         return
 
     except discord.errors.HTTPException:
-        log.error(f"Retrieving the channel failed")
+        log.error("Retrieving the channel failed")
         return
 
     channel = bot.get_channel(CHANNEL_ID)
