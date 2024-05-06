@@ -4,7 +4,7 @@ import requests
 
 from bs4 import BeautifulSoup, element
 
-log = logging.getLogger("MediaFilter")
+log = logging.getLogger("root.MediaFilter")
 
 WEBSITES = {
     "JBZD": {
@@ -39,6 +39,8 @@ class MediaFilter:
         elements_count = 0
         last_subpage = False
         should_continue = True
+
+        log.info(f"Start searching `jbzd.com.pl` ({which_page} page)")
 
         while should_continue:
             if last_subpage:
@@ -88,7 +90,7 @@ class MediaFilter:
 
             subpage += 1
 
-        log.debug(f"In jbzd.com.pl ({which_page} page), find {elements_count} items")
+        log.info(f"In `jbzd.com.pl` ({which_page} page), find {elements_count} items")
 
     def __enter__(self) -> "MediaFilter":
         return self

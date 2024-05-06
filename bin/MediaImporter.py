@@ -9,7 +9,7 @@ from MediaFilter import MediaFilter
 
 LAST_IMPORT_TIME_FILE = "../data/last_run_time.pkl"
 
-log = logging.getLogger("MediaImporter")
+log = logging.getLogger("root.MediaImporter")
 
 
 class MediaImporter:
