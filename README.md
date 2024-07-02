@@ -6,7 +6,7 @@ This script allows you to automate the collection of images and videos from sele
 
 Before running this script, make sure you have the following requirements fulfilled:
 
-- Python 3.8 or higher installed on your system
+- Python 3.10 or higher installed on your system (recommended is Python 3.12)
 - Required Python packages installed (discord.py, requests, bs4)
 
 ## Installation
